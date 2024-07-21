@@ -24,6 +24,9 @@
         android:name="com.zybooks.todoapp.TaskDetailsFragment"
         android:label=""
         tools:layout="@layout/fragment_task_details">
+        <action
+            android:id="@+id/show_refresh_page"
+            app:destination="@id/refresh_fragment" />
         <argument
             android:name="band_id"
             android:defaultValue="1"
@@ -34,11 +37,17 @@
         android:name="com.zybooks.todoapp.RefreshFragment"
         android:label=""
         tools:layout="@layout/fragment_refresh">
+        <action
+            android:id="@+id/show_refresh_page"
+            app:destination="@id/refresh_fragment" />
     </fragment>
     <fragment
         android:id="@+id/add_task_fragment"
         android:name="com.zybooks.todoapp.AddTaskFragment"
         android:label=""
         tools:layout="@layout/fragment_add_task">
+        <action
+            android:id="@+id/show_refresh_page"
+            app:destination="@id/refresh_fragment" />
     </fragment>
 </navigation>
