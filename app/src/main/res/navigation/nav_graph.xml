@@ -28,7 +28,7 @@
             android:id="@+id/show_refresh_page"
             app:destination="@id/refresh_fragment" />
         <argument
-            android:name="band_id"
+            android:name="task_id"
             android:defaultValue="1"
             app:argType="integer" />
     </fragment>
