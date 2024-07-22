@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class TaskDetailsFragment extends Fragment {
 
-    public static final String ARG_TASK_ID = "band_id";
+    public static final String ARG_TASK_ID = "task_id";
     private Task mTask;
 
     public TaskDetailsFragment() {
