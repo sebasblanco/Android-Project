@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.zybooks.myapplication"
+    namespace = "com.zybooks.todoapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.zybooks.myapplication"
+        applicationId = "com.zybooks.todoapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -30,6 +30,9 @@ android {
 
 dependencies {
 
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.navigation:navigation-fragment:2.3.5")
+    implementation ("androidx.navigation:navigation-ui:2.3.5")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
