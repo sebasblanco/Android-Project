@@ -13,6 +13,11 @@ public class Task {
         mDescription = description;
     }
 
+    public Task(String title, String description) {
+        mTitle = title;
+        mDescription = description;
+    }
+
     public int getId() {
         return mId;
     }

@@ -6,11 +6,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,13 +67,24 @@ public class AddTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_task, container, false);
+
+        List<Task> tasks = TaskRepository.getInstance(requireContext()).getTasks();
+
+        EditText taskName = rootView.findViewById(R.id.edit_title_view);
+        EditText taskDesc = rootView.findViewById(R.id.edit_description_view);
+        String name = taskName.getText().toString();
+        String desc = taskDesc.getText().toString();
+
         Button addTaskButton = rootView.findViewById(R.id.add_button);
         addTaskButton.setOnClickListener(
                 (v) -> {
+                    Task newTask = new Task(name, desc);
+                    tasks.add(newTask);
                     NavController navController = findNavController(rootView);
                     navController.popBackStack();
                 }
         );
+
         return rootView;
     }
 }

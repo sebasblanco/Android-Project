@@ -44,7 +44,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         android:layout_marginTop="40dp"
-        tools:context="com.zybooks.todoapp.MainActivity"
+        tools:context="com.zybooks.todoapp.ToDoFragment"
         tools:listitem="@layout/task_item" />
 
 </LinearLayout>

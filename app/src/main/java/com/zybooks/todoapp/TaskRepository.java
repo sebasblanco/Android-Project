@@ -39,4 +39,9 @@ public class TaskRepository {
         }
         return null;
     }
+
+    public void addTask(Task t) {
+        if (t != null)
+            mTasks.add(t);
+    }
 }
