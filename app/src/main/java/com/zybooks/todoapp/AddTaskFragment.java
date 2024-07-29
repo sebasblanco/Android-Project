@@ -68,18 +68,18 @@ public class AddTaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_task, container, false);
 
-        List<Task> tasks = TaskRepository.getInstance(requireContext()).getTasks();
+        TaskRepository mTaskRepository = TaskRepository.getInstance(requireContext());
 
         EditText taskName = rootView.findViewById(R.id.edit_title_view);
         EditText taskDesc = rootView.findViewById(R.id.edit_description_view);
-        String name = taskName.getText().toString();
-        String desc = taskDesc.getText().toString();
 
         Button addTaskButton = rootView.findViewById(R.id.add_button);
         addTaskButton.setOnClickListener(
                 (v) -> {
+                    String name = taskName.getText().toString();
+                    String desc = taskDesc.getText().toString();
                     Task newTask = new Task(name, desc);
-                    tasks.add(newTask);
+                    mTaskRepository.addTask(newTask);
                     NavController navController = findNavController(rootView);
                     navController.popBackStack();
                 }
