@@ -18,6 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +37,8 @@ public class RefreshFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private int selectedTime;
 
     public RefreshFragment() {
         // Required empty public constructor
@@ -71,6 +76,8 @@ public class RefreshFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_refresh, container, false);
         Spinner spinner = rootView.findViewById(R.id.frequency_selector);
+        List<Task> tasks = TaskRepository.getInstance(requireContext()).getTasks();
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.frequency_selection, android.R.layout.simple_spinner_item);
 
@@ -79,11 +86,28 @@ public class RefreshFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String)parent.getItemAtPosition(position);
+                selectedTime = (Integer)parent.getItemAtPosition(position);
+                if (selectedTime == 1) {
+                    for ( Task task : tasks) {
+                        task.setIsChecked(1);
+                        task.setTimeLeft(60);
+                    }
+                } else if (selectedTime == 2) {
+                    for ( Task task : tasks) {
+                        task.setIsChecked(2);
+                        task.setTimeLeft(3600);
+                    }
+                } else if (selectedTime == 3) {
+                    for ( Task task : tasks) {
+                        task.setIsChecked(3);
+                        task.setTimeLeft(86400);
+                    }
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                selectedTime = 1;
             }
         });
 
@@ -94,6 +118,19 @@ public class RefreshFragment extends Fragment {
                 navController.popBackStack();
             }
         );
+
+        Thread thread = new Thread(() -> {
+            getActivity().runOnUiThread(() -> {
+                for ( Task task : tasks) {
+                    if (task.getTimeLeft() == 0) {
+                        int positionToUncheck = tasks.indexOf(task);
+                        spinner.setSelection(positionToUncheck);
+                    }
+                }
+            });
+        });
+        thread.start();
+
         return rootView;
     }
 
