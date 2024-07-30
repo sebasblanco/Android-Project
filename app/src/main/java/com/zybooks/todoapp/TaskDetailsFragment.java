@@ -11,24 +11,19 @@ public class TaskDetailsFragment extends Fragment {
 
     public static final String ARG_TASK_ID = "task_id";
     private Task mTask;
+    private int taskId;
 
     public TaskDetailsFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int taskId = 1;
-
         Bundle args = getArguments();
         if (args != null) {
             taskId = args.getInt(ARG_TASK_ID);
         }
-
-        // Get the selected Task
-        mTask = TaskRepository.getInstance(requireContext()).getTask(taskId);
     }
 
     @Override
@@ -43,6 +38,17 @@ public class TaskDetailsFragment extends Fragment {
             TextView descriptionTextView = rootView.findViewById(R.id.task_description);
             descriptionTextView.setText(mTask.getDescription());
         }
+
+        Thread thread = new Thread(() -> {
+            mTask = TaskRepository.getInstance(requireContext()).getTask(taskId);
+            requireActivity().runOnUiThread(() -> {
+                TextView titleTextView = rootView.findViewById(R.id.task_title);
+                TextView descriptionTextView = rootView.findViewById(R.id.task_description);
+                titleTextView.setText(mTask.getTitle());
+                descriptionTextView.setText(mTask.getDescription());
+            });
+        });
+        thread.start();
 
         return rootView;
     }
