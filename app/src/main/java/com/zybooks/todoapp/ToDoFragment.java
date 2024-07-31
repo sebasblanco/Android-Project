@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -71,7 +73,16 @@ public class ToDoFragment extends Fragment {
             Task task = mTasks.get(position);
             holder.bind(task);
             holder.itemView.setTag(task.getId());
+
             holder.itemView.setOnClickListener(mOnClickListener);
+
+            holder.mTaskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    task.setIsChecked(isChecked);
+                }
+            });
         }
 
         @Override
@@ -83,14 +94,17 @@ public class ToDoFragment extends Fragment {
     private static class TaskHolder extends RecyclerView.ViewHolder {
 
         private final TextView mTaskTextView;
+        private final CheckBox mTaskCheckBox;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.task_item, parent, false));
             mTaskTextView = itemView.findViewById(R.id.task_text);
+            mTaskCheckBox = itemView.findViewById(R.id.task_checkbox);
         }
 
         public void bind(Task task) {
             mTaskTextView.setText(task.getTitle());
+            mTaskCheckBox.setChecked(task.getIsChecked());
         }
     }
 }

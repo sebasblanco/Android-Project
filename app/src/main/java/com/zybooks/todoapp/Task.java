@@ -4,26 +4,23 @@ public class Task {
     private int mId;
     private String mTitle;
     private String mDescription;
-    private int isChecked;
-    // 1 - minute
-    // 2 - hour
-    // 3 - day
+    private boolean isChecked;
 
     private long timeLeft;
 
     public Task() {}
 
-    public Task(int id, String title, String description) {
+    public Task(int id, String title, String description, boolean checked) {
         mId = id;
         mTitle = title;
         mDescription = description;
-        isChecked = 1;
+        isChecked = checked;
     }
 
     public Task(String title, String description) {
         mTitle = title;
         mDescription = description;
-        isChecked = 1;
+        isChecked = false;
     }
 
     public int getId() {
@@ -50,17 +47,12 @@ public class Task {
         this.mDescription = description;
     }
 
-    public int getIsChecked() {
+    public boolean getIsChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(int checked) {
+    public void setIsChecked(boolean checked) {
         this.isChecked = checked;
     }
 
-    public long getTimeLeft() {
-        return timeLeft;
-    }
-
-    public void setTimeLeft(long time) { this.timeLeft = time; }
 }

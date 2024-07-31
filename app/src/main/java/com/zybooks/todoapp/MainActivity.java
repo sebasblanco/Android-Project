@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Menu mMenu;
 
+    TaskRepository mTaskRepository;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -37,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
                     Builder(navController.getGraph()).build();
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
         }
+
+        mTaskRepository = TaskRepository.getInstance(this);
+
+        mTaskRepository.startTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTaskRepository.stopTimer();
     }
 
     @Override
