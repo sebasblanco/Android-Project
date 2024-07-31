@@ -29,7 +29,7 @@ public class TaskRepository {
                 resetCheckedTasks();
             else if (this.mRefreshMode.equals("Hour") && Calendar.getInstance().get(Calendar.MINUTE) == 0)
                 resetCheckedTasks();
-            else if (this.mRefreshMode.equals("Day") && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) == 0)
+            else if (this.mRefreshMode.equals("Day") && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) == 0 && Calendar.getInstance().get(Calendar.MINUTE) == 0)
                 resetCheckedTasks();
         }, delay, 60, TimeUnit.SECONDS);
     }
