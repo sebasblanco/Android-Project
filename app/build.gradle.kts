@@ -30,6 +30,8 @@ android {
 
 dependencies {
 
+    implementation ("androidx.room:room-runtime:2.4.0")
+    annotationProcessor ("androidx.room:room-compiler:2.4.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("androidx.navigation:navigation-fragment:2.3.5")
     implementation ("androidx.navigation:navigation-ui:2.3.5")
