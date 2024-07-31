@@ -29,8 +29,7 @@
             app:destination="@id/refresh_fragment" />
         <argument
             android:name="task_id"
-            android:defaultValue="1"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/refresh_fragment"
