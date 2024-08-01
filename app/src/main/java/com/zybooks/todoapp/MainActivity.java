@@ -3,26 +3,25 @@ package com.zybooks.todoapp;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.zybooks.todoapp.viewmodel.TaskViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     private Menu mMenu;
+
+    TaskViewModel mTaskViewModel;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
                     Builder(navController.getGraph()).build();
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
         }
+
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+        mTaskViewModel.startTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTaskViewModel.stopTimer();
     }
 
     @Override
